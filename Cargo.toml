@@ -1,0 +1,10 @@
+[package]
+name = "remarkable_manager"
+version = "0.1.0"
+authors = ["Amy Keibler <amelia.keibler@gmail.com>"]
+edition = "2021"
+description = "Back up the Remarkable tablet and manage custom templates"
+
+license-file = "LICENSE"
+
+[dependencies]
