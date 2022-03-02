@@ -1,7 +1,7 @@
 ---
 source: src/templates.rs
-assertion_line: 60
-expression: actual
+assertion_line: 65
+expression: output
 
 ---
 {
@@ -9,7 +9,7 @@ expression: actual
     {
       "name": "Burndown",
       "filename": "burndown",
-      "iconCode": "",
+      "iconCode": "\ue9fe",
       "categories": [
         "Life/organize"
       ]

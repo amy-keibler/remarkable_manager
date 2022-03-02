@@ -1,4 +1,18 @@
-use serde::{Deserialize, Serialize, Serializer};
+use std::fmt::Write;
+
+use serde::{Deserialize, Serialize};
+
+pub fn output_templates(templates: &Templates, writer: &mut impl Write) -> eyre::Result<()> {
+    let templates_with_unicode = serde_json::to_string_pretty(templates)?;
+    for c in templates_with_unicode.chars() {
+        if c as u32 <= 127 {
+            write!(writer, "{c}")?;
+        } else {
+            write!(writer, r"\u{:4x}", c as u32)?;
+        }
+    }
+    Ok(())
+}
 
 #[derive(Debug, Deserialize, PartialEq, Serialize)]
 pub struct Templates {
@@ -10,12 +24,9 @@ pub struct Templates {
 pub struct Template {
     name: String,
     filename: String,
-    icon_code: IconCode,
+    icon_code: String,
     categories: Vec<String>,
 }
-
-#[derive(Debug, Deserialize, PartialEq, Serialize)]
-pub struct IconCode(String);
 
 #[cfg(test)]
 mod test {
@@ -30,7 +41,7 @@ mod test {
             templates: vec![Template {
                 name: "Burndown".to_string(),
                 filename: "burndown".to_string(),
-                icon_code: IconCode("\u{e9fe}".to_string()),
+                icon_code: "".to_string(),
                 categories: vec!["Life/organize".to_string()],
             }],
         };
@@ -44,19 +55,23 @@ mod test {
             templates: vec![Template {
                 name: "Burndown".to_string(),
                 filename: "burndown".to_string(),
-                icon_code: IconCode("\u{e9fe}".to_string()),
+                icon_code: "".to_string(),
                 categories: vec!["Life/organize".to_string()],
             }],
         };
+        let mut output = String::new();
+        output_templates(&actual, &mut output).expect("Should have written output");
 
-        insta::assert_json_snapshot!(actual);
+        insta::assert_snapshot!(output);
     }
 
     #[test]
     fn it_should_round_trip() {
         let actual: Templates = serde_json::from_str(include_str!("../data/example_template.json"))
             .expect("Failed to deserialize");
+        let mut output = String::new();
+        output_templates(&actual, &mut output).expect("Should have written output");
 
-        insta::assert_json_snapshot!(actual);
+        insta::assert_snapshot!(output);
     }
 }
