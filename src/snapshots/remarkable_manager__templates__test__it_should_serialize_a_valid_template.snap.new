@@ -1,0 +1,18 @@
+---
+source: src/templates.rs
+assertion_line: 52
+expression: actual
+
+---
+{
+  "templates": [
+    {
+      "name": "Burndown",
+      "filename": "burndown",
+      "iconCode": "",
+      "categories": [
+        "Life/organize"
+      ]
+    }
+  ]
+}
