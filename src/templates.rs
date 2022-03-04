@@ -4,11 +4,15 @@ use serde::{Deserialize, Serialize};
 
 pub fn output_templates(templates: &Templates, writer: &mut impl Write) -> eyre::Result<()> {
     let templates_with_unicode = serde_json::to_string_pretty(templates)?;
+    let mut buf = [0, 0];
     for c in templates_with_unicode.chars() {
-        if c as u32 <= 127 {
+        if c.is_ascii() {
             write!(writer, "{c}")?;
         } else {
-            write!(writer, r"\u{:4x}", c as u32)?;
+            let buf = c.encode_utf16(&mut buf);
+            for i in buf {
+                write!(writer, r"\u{:4x}", i)?;
+            }
         }
     }
     Ok(())
