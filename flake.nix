@@ -28,7 +28,19 @@
 
       # `nix develop`
       devShell = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ rustc cargo clippy rustfmt rust-analyzer hexyl ];
+        nativeBuildInputs = with pkgs; [
+          cargo
+          cargo-edit
+          cargo-insta
+          cargo-outdated
+          clippy
+          rustc
+          rustfmt
+          rust-analyzer
+
+          # hex editor to verify UTF-8 output
+          hexyl
+        ];
 
         RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
       };
