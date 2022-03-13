@@ -1,0 +1,13 @@
+{
+    "templates": [
+        {
+            "name": "Burndown",
+            "filename": "burndown",
+            "iconCode": "\ue9fe",
+            "categories": [
+                "Life/organize"
+            ],
+            "extra": "data"
+        }
+    ]
+}
