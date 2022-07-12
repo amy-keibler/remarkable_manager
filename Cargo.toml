@@ -8,7 +8,7 @@ description = "Back up the Remarkable tablet and manage custom templates"
 license-file = "LICENSE"
 
 [dependencies]
-color-eyre = "0.6.1"
+color-eyre = "0.6.2"
 directories = "4.0.1"
 eyre = "0.6.8"
 serde = { version = "1.0.139", features = ["derive"] }
