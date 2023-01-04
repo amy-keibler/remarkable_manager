@@ -18,4 +18,4 @@ tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
 
 [dev-dependencies]
-insta = "1.22.0"
+insta = "1.24.1"
