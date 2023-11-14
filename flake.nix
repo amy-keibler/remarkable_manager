@@ -40,6 +40,9 @@
 
           # hex editor to verify UTF-8 output
           hexyl
+
+          # Nix tooling
+          nixpkgs-fmt
         ];
 
         RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
